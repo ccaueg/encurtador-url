@@ -9,7 +9,6 @@
 - [x] Tratamento de exceções
 - [ ] Integrar em um contêiner no Docker
 - [ ] Criar um QR Code associado à URL encurtada
-- [ ] Tratar todos os erros de requisição
 - [ ] Desenvolver o frontend
 
 <hr />
