@@ -1,5 +1,6 @@
-package com.caue.encurtador_url.services;
+package com.caue.encurtador_url.service;
 
+import com.caue.encurtador_url.exception.ResourceNotFoundException;
 import com.caue.encurtador_url.model.Url;
 import com.caue.encurtador_url.repository.UrlRepository;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -20,20 +21,17 @@ public class UrlService {
         return RandomStringUtils.randomAlphanumeric(5, 10);
     }
 
-    public Optional<Url> getOriginalUrl(String shortUrl) {
-        Optional<Url> urlOptional = urlRepository.findByShortUrl(shortUrl);
+    public Url getOriginalUrl(String shortUrl) {
+        Url url = urlRepository.findByShortUrl(shortUrl)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("URL não encontrada para o código: " + shortUrl)
+                );
 
-        if (urlOptional.isPresent()) {
-            Url url = urlOptional.get();
-
-            if (url.getExpirationDate().isAfter(LocalDateTime.now())) {
-                return Optional.of(url);
-            } else {
-                urlRepository.delete(url);
-            }
+        if (url.getExpirationDate().isBefore(LocalDateTime.now())) {
+            urlRepository.delete(url);
         }
 
-        return Optional.empty();
+        return url;
     }
 
     public String shortenUrl(String originalUrl) {
