@@ -7,8 +7,10 @@
 
 ### TODO
 - [x] Tratamento de exceções
-- [ ] Integrar em um contêiner no Docker
-- [ ] Criar um QR Code associado à URL encurtada
+- [ ] Implementar testes automatizados
+- [ ] Documentação com Swagger
+- [ ] Integrar a um contêiner no Docker
+- [ ] Gerador de QR Code associado à URL encurtada
 - [ ] Desenvolver o frontend
 
 <hr />
