@@ -8,11 +8,11 @@
 
 ### TODO
 - [x] Tratamento de exceções
-- [x] Integrar a um contêiner no Docker
-- [ ] Implementar testes automatizados
+- [x] Suporte a Docker
+- [ ] Testes automatizados
 - [ ] Documentação com Swagger
 - [ ] Gerador de QR Code associado à URL encurtada
-- [ ] Desenvolver o frontend
+- [ ] Front-end
 
 <hr />
 
