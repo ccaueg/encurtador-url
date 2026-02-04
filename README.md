@@ -9,9 +9,9 @@
 ### TODO
 - [x] Tratamento de exceções
 - [x] Suporte a Docker
+- [x] Gerador de QR Code associado à URL encurtada
 - [ ] Testes automatizados
 - [ ] Documentação com Swagger
-- [ ] Gerador de QR Code associado à URL encurtada
 - [ ] Front-end
 
 <hr />

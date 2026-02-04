@@ -3,15 +3,16 @@ package com.caue.encurtador_url.service;
 import com.caue.encurtador_url.exception.ResourceNotFoundException;
 import com.caue.encurtador_url.model.Url;
 import com.caue.encurtador_url.repository.UrlRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
+@Slf4j
 @Service
 public class UrlService {
-    private UrlRepository urlRepository;
+    private final UrlRepository urlRepository;
 
     public UrlService(UrlRepository urlRepository) {
         this.urlRepository = urlRepository;
@@ -35,14 +36,24 @@ public class UrlService {
     }
 
     public String shortenUrl(String originalUrl) {
-        String shortUrl = createShortUrl();
+        log.info("Encurtando URL: {}", originalUrl);
 
-        Url url = new Url();
-        url.setOriginalUrl(originalUrl);
-        url.setShortUrl(shortUrl);
-        url.setExpirationDate(LocalDateTime.now().plusDays(30));
-        urlRepository.save(url);
+        try {
+            String shortUrl = createShortUrl();
+            log.debug("URL encurtada gerada: {}", shortUrl);
 
-        return shortUrl;
+            Url url = new Url();
+            url.setOriginalUrl(originalUrl);
+            url.setShortUrl(shortUrl);
+            url.setExpirationDate(LocalDateTime.now().plusDays(30));
+            urlRepository.save(url);
+
+            log.info("URL salva com sucesso: {} -> {}", originalUrl, shortUrl);
+
+            return shortUrl;
+        } catch (Exception exc) {
+            log.error("Erro ao encurtar URL: {}", originalUrl, exc);
+            throw exc;
+        }
     }
 }
