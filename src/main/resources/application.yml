@@ -3,10 +3,14 @@ spring:
     name: encurtador-url
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/encurtador_url
-    username: postgres
-    password: postgres
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/encurtador_url}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
 
   jpa:
     hibernate:
@@ -15,11 +19,35 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  web:
+    error:
+      include-message: always
+      include-binding-errors: always
 
 server:
   port: 5050
 
+app:
+  base-url: ${APP_BASE_URL:http://localhost:5050}
+  qrcode:
+    width: 300
+    height: 300
+
 logging:
   level:
+    root: INFO
+    com.caue.encurtador_url: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
