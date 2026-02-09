@@ -18,6 +18,8 @@ services:
     container_name: encurtador_api
     ports:
       - "5050:5050"
+    env_file:
+      - .env
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/encurtador_url
       SPRING_DATASOURCE_USERNAME: postgres
