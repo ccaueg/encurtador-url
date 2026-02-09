@@ -15,6 +15,12 @@ USER spring:spring
 
 COPY --from=build /app/target/*.jar app.jar
 
+ARG AWS_ACESS_KEY_ID
+ARG AWS_SECRET_ACESS_KEY
+
+ENV AWS_REGION=us-east-1
+ENV AWS_BUCKET_NAME=qrcode-storager
+
 EXPOSE 5050
 
 ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-jar", "app.jar"]
