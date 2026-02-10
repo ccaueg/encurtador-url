@@ -1,8 +1,9 @@
 package com.caue.encurtador_url.service.url;
 
 import com.caue.encurtador_url.model.Url;
-import com.caue.encurtador_url.port.StoragePort;
 import com.caue.encurtador_url.repository.UrlRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,22 +13,21 @@ import java.util.List;
 @Service
 public class UrlCleanupService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UrlCleanupService.class);
     private final UrlRepository urlRepository;
-    private final StoragePort storage;
 
-    public UrlCleanupService(UrlRepository urlRepository, StoragePort storage) {
+    public UrlCleanupService(UrlRepository urlRepository) {
         this.urlRepository = urlRepository;
-        this.storage = storage;
     }
 
     @Transactional
     public void cleanupExpiredUrls() {
-        List<Url> expiredUrls =
-                urlRepository.findByExpirationDateBefore(LocalDateTime.now());
+        List<Url> expiredUrls = urlRepository.findByExpirationDateBefore(LocalDateTime.now());
 
-        for (Url url : expiredUrls) {
-            storage.delete(url.getQrCodeKey());
-            urlRepository.delete(url);
+        if (expiredUrls.isEmpty()) {
+            return;
         }
+
+        urlRepository.deleteAll(expiredUrls);
     }
 }
