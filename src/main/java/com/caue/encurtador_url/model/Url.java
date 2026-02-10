@@ -29,6 +29,9 @@ public class Url {
     private String shortUrl;
 
     @Column(nullable = false)
+    private String qrCodeKey;
+
+    @Column(nullable = false)
     private LocalDateTime expirationDate;
 
     @Column(nullable = false, updatable = false)

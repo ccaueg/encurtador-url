@@ -1,4 +1,4 @@
-package com.caue.encurtador_url.service;
+package com.caue.encurtador_url.service.qrcode;
 
 import com.caue.encurtador_url.port.StoragePort;
 import com.google.zxing.BarcodeFormat;

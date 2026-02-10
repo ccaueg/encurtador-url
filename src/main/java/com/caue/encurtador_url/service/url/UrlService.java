@@ -1,4 +1,4 @@
-package com.caue.encurtador_url.service;
+package com.caue.encurtador_url.service.url;
 
 import com.caue.encurtador_url.exception.ResourceNotFoundException;
 import com.caue.encurtador_url.model.Url;
