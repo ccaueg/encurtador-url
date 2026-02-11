@@ -19,9 +19,6 @@ services:
       - "5050:5050"
     env_file:
       - .env
-    environment:
-      AWS_REGION: us-east-2
-      AWS_BUCKET_NAME: qrcode-s3-storage
     restart: always
     depends_on:
       - postgres
