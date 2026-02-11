@@ -37,12 +37,4 @@ public class S3StorageAdapter implements StoragePort {
         return String.format("https://%s.s3.%s.amazonaws.com/%s",
                 bucketName, region, fileName);
     }
-
-    @Override
-    public void delete(String key) {
-        s3Client.deleteObject(DeleteObjectRequest.builder()
-                .bucket(bucketName)
-                .key(key)
-                .build());
-    }
 }
