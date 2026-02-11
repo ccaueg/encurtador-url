@@ -11,7 +11,7 @@
 - [x] Tratamento de exceções
 - [x] Suporte a Docker
 - [x] Gerador de QR Code associado à URL encurtada
-- [x] Integração com AWS S3
+- [x] Integração com AWS (S3, EC2, RDB)
 - [ ] Testes automatizados
 - [ ] Documentação com Swagger
 - [ ] Front-end
